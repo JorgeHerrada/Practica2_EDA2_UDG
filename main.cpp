@@ -6,7 +6,7 @@
 
 Materia: Estructura de datos 2
 Seccion: D12
-Profesor: Graciela Lara Lopez
+Profesor: Dra. Graciela Lara Lopez
 
 */
 
@@ -16,8 +16,8 @@ Profesor: Graciela Lara Lopez
 using namespace std;
 
 //FUNCIONES PARA VALIDACIÓN DE ENTRADAS
-int tomarInt();
-bool tipoIntValido(string numero);
+int tomarInt();//CONVIERTE LA CADENA A ENTERO
+bool tipoIntValido(string numero); // CONFIRMA QUE LA CADENA CONTIENE UN ENTERO VALIDO
 
 int main()
 {
@@ -113,14 +113,15 @@ int main()
 
         default:
         {
+            //SI EL ENTERO NO FUE 1-4 LANZA SUGERENCIA Y SALE DEL SWITCH
             cout<<"Opcion invalida, intenta de nuevo con un entero entre 1 y 4."<<endl;
         }
         break;
 
         }
-        system("pause");
+        system("pause"); //PAUSA Y ESPERA A TECLEO PARA CONTINUAR
 
-    } while (opcion != 4);
+    } while (opcion != 4); // CICLO DE MENÚ CONTINUA MIENTRAS NO SE ELIJA LA OPCION 4 PARA SALIR
 
 
     return 0;
@@ -130,23 +131,23 @@ int main()
 //FUNCION PARA VALIDAR LA ENTRADA DE ENTEROS
 //TOMA UNA CADENA, LA ANALISA Y SI ES VALIDA LA CONVIERTE A ENTERO
 int tomarInt() {
-    string numero;
-    bool esValido = false;
+    string numero; // CADENA PARA ALMACENAR ENTRADA DE CONSOLA
+    bool esValido = false; //BOOLEANO DE CONFIRMACION
 
-    while(! esValido) {
+    while(! esValido) { 
         try {
             //cout<<"Ingrese un entero entre 1 y 4: ";
             getline(cin,numero);
-            esValido = tipoIntValido(numero);
+            esValido = tipoIntValido(numero);//LLAMA A LA FUNCION PARA ASEGURAR QUE SON CARACTERES DE DIGITOS
 
-            if(! esValido) {
+            if(! esValido) {  // SI NO ES VALIDO NO CONTINUA
                 throw numero;
             }
-        } catch(string e) {
+        } catch(string e) { //SI NO ES VALIDO DESPLIEGA MENSAJE Y REINICIA EL CICLO
             cout<<"\n\nEl entero: "<<e<<" no es valido."<<endl;
         }
-    }
-    return atoi(numero.c_str());
+    }//SI FUE VALIDO SALE DEL CICLO Y RETORNA EL ENTERO QUE ANTES ERA STRING
+    return atoi(numero.c_str());//CONVIERTE STRING A ENTERO 
 }
 
 
@@ -155,16 +156,18 @@ int tomarInt() {
 //CONTENGA SOLO NUMEROS VALIDOS, RETORNA TRUE SI ES VALIDO
 bool tipoIntValido(string numero) {
     int inicio=0;
-    if (numero.length()==0)
+    if (numero.length()==0) //SI EL LARGO DE LA CADENA ES CERO, RETORNA FALSO
         return 0; //false
-    if(numero[0] == '+' || numero[0] == '-') {
+    // SI LA CADENA COMIENZA CON + Ó - LO DEJA PASAR Y LEERÁ A PARTIR DEL SEGUNDO CARACTER
+    if(numero[0] == '+' || numero[0] == '-') { 
         inicio = 1;
-        if (numero.length() == 1)
+        if (numero.length() == 1) //SI EL LARGO ES 1 (EL UNICO CARACTER ES + Ó -), RETORNA FALSO
             return 0;
     }
+    //CHECA TODOS LOS CARACTERES DE LA CADENA Y SI NO SON DIGITO, RETORNA FALSE
     for (int i=inicio; i<numero.length(); i++) {
         if(! isdigit(numero[i]))
             return 0;
     }
-    return 1;
+    return 1; //SI PASÓ TODOS LOS FILTROS, CONFIRMA QUE SON CARACTERES DE DIGITOS Y RETORNA 1
 }

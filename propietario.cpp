@@ -2,11 +2,13 @@
 #include <fstream>
 #include <string.h>
 
-Propietario::Propietario() { //CONSTRUCTOR
+//CONSTRUCTOR
+Propietario::Propietario() { 
     //cont = 0; //NO RECURDO PARA QUÉ LO PUSE PERO CREO QUE PUEDE AYUDAR PARA LA OPCION 3 v:
 }
-Propietario::~Propietario() { //DESTRUCTOR
 
+//DESTRUCTOR
+Propietario::~Propietario() { 
 }
 
 
@@ -97,61 +99,50 @@ size_t Propietario::calcular_direccion_base(const string& _placa) {
         placa_char[i] = placa[i];
     }
 
-    // PLACA ORIGINAL AHORA EN CHAR
-    //LINEAS DE PRUEBA
-    // cout << placa_char[0] << placa_char[1] << placa_char[2] << placa_char[3] << placa_char[4] << placa_char[5] <<
-    //         placa_char[6] << placa_char[7] << placa_char[8] << placa_char[9] << placa_char[10] << placa_char[11] << endl<<endl;
-
 
     // PASO 1.REPRESENTAR LA LLAVE EN FORMA NUMÉRICA
     int placa_int[12];
 
     //CHARACTER OF DIGIT TO DIGIT
-    for (size_t i = 0; i < 4; i++) {
-        placa_int[i] = placa_char[i] - '0';
-    }
+    //***** MODIFICACIÓN: COMENTADO TODO EL CICLO
+    // for (size_t i = 0; i < 4; i++) {
+    //     placa_int[i] = placa_char[i] - '0'; //CONVIERTE EL CARACTER DE UN DIGITO A UN INT
+    // }
 
 
     // CHARACTER TO ITS ASCII VALUE
-    for (size_t i = 4; i < 12; i++) {
+    for (size_t i = 0; i < 12; i++) // ** MODIFICACION: INICIAMOS I=0 EN VEZ DE I=4 PARA QUE CONVIERTA TODO A ASCII
+    { 
         placa_int[i] = (int)placa_char[i];
     }
-
-    // LINEAS DE PRUEBA
-    // cout << "Numeros de placa en enteros y caracteres en entero segun su valor ASCII: " << endl;
-    // for(int i = 0; i < sizeof(placa_char) ; i++)
-    // {
-    //     cout << placa_int[i] << " ";
-    // }
-    // cout << endl;
-
+    
     // PASO 2. DESGLOSAR Y SUMAR
 
-    int sumas[6];
-    int j = 0;
-    // cout << "Numeros concatenados y listos para sumarse: " << endl; //PRUEBA
-    for (size_t i = 0; i < 6; i++) {
-        if(placa_int[j+1] < 10) {
-            sumas[i] = (placa_int[j] * 10) + placa_int[j+1];
-        } else {
-            sumas[i] = (placa_int[j] * 100) + placa_int[j+1];
-        }
+    int sumas[6]; //ALMACENARÁ LOS NUMEROS CONCATENADOS ANTES DE SUMARLOS
+    int j = 0; //CONTADOR
 
-        j = j +2;
-        // cout << sumas[i] << " + "; //PRUEBAS
+    // CONCATENA LOS PARES DE ENTEROS PARA DESPUES SUMARLOS
+    for (size_t i = 0; i < 6; i++) {
+        if(placa_int[j+1] < 10) { // SI ES MENOR QUE 10, SE MULTIPLICA POR 10 PARA CONCATENAR EL NUMERO ANTERIOR
+            sumas[i] = (placa_int[j] * 10) + placa_int[j+1]; 
+        } else { //MULTIPLICA POR 100 Y CONCATENA
+            sumas[i] = (placa_int[j] * 100) + placa_int[j+1]; 
+        }
+        j = j +2; // CONTADOR J AUMENTA DE 2 EN 2 PORQUE SE TRABAJA CON PARES DE ENTEROS
     }
 
     size_t suma_final = 0; //ES LA QUE TERMINARÁ SIENDO LA NUEVA DIRECCION BASE
     // cout << "Suma de los valores anteriores y ahora nueva direccion base: " << endl; //PRUEBA
     for (size_t i = 0; i < 6; i++) {
-        suma_final = suma_final + sumas[i];
-        suma_final = suma_final % 20000;
+        suma_final = suma_final + sumas[i]; //SUMAMOS LOS VALORES Y ACUMULAMOS
+        suma_final = suma_final % 20000; //COMPRUEBA QUE NO PASE DEL NUMERO LIMITE Y SI LO HACE LO HACE MÁS PEQUEÑO
     }
     // cout << suma_final << endl; //PRUEBA
 
-    suma_final = (suma_final%101);
+    suma_final = (suma_final%101); //TOMAMOS EL RESIDUO DE LA SUMA FINAL ENTRE 101
 
-    if (suma_final == 100) {
+    //SI LA POSICION ES 100, LA CAMBIA A 0, PORQUE SOLO TENEMOS DESDE 0 A 99 POSICIONES
+    if (suma_final == 100) { 
         suma_final = 0;
     }
 
@@ -161,9 +152,10 @@ size_t Propietario::calcular_direccion_base(const string& _placa) {
     // LINEAS DE PRUEBA
     // cout << "Direccion base, calculada con el numero anterior modulo(%) de 101 \n" << suma_final << endl;
 
-    return suma_final;
+    return suma_final; //RETORNAMOS LO QUE ES SERÁ LA DIRECCIÓN BASE
 
 }
+
 
 // ASIGNA LOS VALORES DE LA LISTA CONTADORA DE FRECUENCIAS EN 0
 void Propietario::inicializar_lista() {
@@ -173,10 +165,12 @@ void Propietario::inicializar_lista() {
     }
 }
 
+
 // SI ENCUENTRO UNA COINCIDENCIA LE SUMO 1 EN LA LISTA EN SU POSICION, RECIBO LA POSICION EN EL ARCHIVO
 void Propietario::cuenta_frecuencias(size_t suma_final) {
     frecuencias[suma_final] += 1;  // SUMO UNO EN LA POSICION RECIBIDA EN LA LISTA CONTADORA
 }
+
 
 //MOSTRAR RESULTADOS ORDENADOS DEJANDO VACIAS LAS DIRECCIONES NO GENERADAS
 void Propietario::mostrar_resultado() { 
@@ -231,6 +225,8 @@ void Propietario::imprime_frecuencia() {
     archivo_frecuencias.close(); // CERRAMOS EL ARCHIVO
 }
 
+
+//GUARDA PLACA
 void Propietario::set_placa(const string& pl) {
     placa = pl;
 
@@ -238,31 +234,34 @@ void Propietario::set_placa(const string& pl) {
     placa[0] = '\0';
 
 }
-
+//RETORNA PLACA
 string Propietario::get_placa() {
     return placa;
 }
 
-
+//GUARDA NOMBRE
 void Propietario::set_nombre(const string& nom) {
     nombre = nom;
 }
+// RETORNA NOMBRE
 string Propietario::get_nombre() {
     return nombre;
 }
 
-
+// GUARDA PROPIETARIO
 void Propietario::set_domicilio(const string& dom) {
     domicilio = dom;
 }
+// RETORNA PROPIETARIO
 string Propietario::get_domicilio() {
     return domicilio;
 }
 
-
+// GUARDA PROVINCIA
 void Propietario::set_provincia(const string& prv) {
     provincia = prv;
 }
+// RETORNA PROVINCIA
 string Propietario::get_provincia() {
     return provincia;
 }

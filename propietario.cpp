@@ -1,3 +1,15 @@
+/*
+
+215465492 Saul Ezequiel García Ramos
+219293548 Abel Alejandro villa Gonzalez
+211721923 Jorge Luis Herrada Serrano 
+
+Materia: Estructura de datos 2
+Seccion: D12
+Profesor: Dra. Graciela Lara Lopez
+
+*/
+
 #include "propietario.h"
 #include <fstream>
 #include <string.h>
@@ -18,9 +30,9 @@ Propietario::~Propietario() {
 void Propietario::funcion_de_dispersion() {
     ifstream archivo("AUTOS_PRO.TXT");//ABRIMOS ARCHIVO CON REGISTROS DE CONDUCTORES EN MODO LECTURA
 
-    if(!archivo.is_open()) { // CONDICION PARA ASEGURAR QUE EL ARCHIVO SE ABRI� CORRECTAMENTE
+    if(!archivo.is_open()) { // CONDICION PARA ASEGURAR QUE EL ARCHIVO SE ABRIÓ CORRECTAMENTE
         cout << "Error en apertura de archivo" << endl; // CASO EN QUE FALLA APERTURA DE ARCHIVO
-    } else { // SI EL ARCHIVO SE ABRI� CORRECTAMENTE CONTINUAMOS
+    } else { // SI EL ARCHIVO SE ABRIÓ CORRECTAMENTE CONTINUAMOS
         //CREAMOS ARCHIVO PARA GUARDAR LOS REGISTROS UNA VEZ ORGANIZADOS
         ofstream archivo_organizado("Registros_Organizados.txt",ios::out); //ARCHIVO EN MODO ESCRITURA
 
@@ -83,7 +95,6 @@ void Propietario::funcion_de_dispersion() {
         }
         archivo.close(); // CERRAMOS ARCHIVO DE PROPIETARIOS ORIGINAL
         archivo_organizado.close(); // CERRAMOS ARCHIVO DE REGISTROS ORGANIZADOS
-
     }
 }
 
@@ -121,15 +132,55 @@ size_t Propietario::calcular_direccion_base(const string& _placa) {
     int sumas[6]; //ALMACENARÁ LOS NUMEROS CONCATENADOS ANTES DE SUMARLOS
     int j = 0; //CONTADOR
 
+    //STRINGS PARA ALMACENAR LOS CARACTERES QUE SON LOS VALORES ASCII DE LA PLACA
+    string n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12;
+
+    //CONVERTIMOS ENTEROS EN STRINGS, UNO A UNO PAR PODER CONCATENAR
+    n1 = to_string(placa_int[0]); //CONVIERTE DE ENTERO A STRING 
+    n2 = to_string(placa_int[1]); //CONVIERTE DE ENTERO A STRING 
+    n3 = to_string(placa_int[2]); //CONVIERTE DE ENTERO A STRING 
+    n4 = to_string(placa_int[3]); //CONVIERTE DE ENTERO A STRING 
+    n5 = to_string(placa_int[4]); //CONVIERTE DE ENTERO A STRING 
+    n6 = to_string(placa_int[5]); //CONVIERTE DE ENTERO A STRING 
+    n7 = to_string(placa_int[6]); //CONVIERTE DE ENTERO A STRING 
+    n8 = to_string(placa_int[7]); //CONVIERTE DE ENTERO A STRING 
+    n9 = to_string(placa_int[8]); //CONVIERTE DE ENTERO A STRING 
+    n10 = to_string(placa_int[9]); //CONVIERTE DE ENTERO A STRING 
+    n11 = to_string(placa_int[10]); //CONVIERTE DE ENTERO A STRING 
+    n12 = to_string(placa_int[11]); //CONVIERTE DE ENTERO A STRING 
+
+    //ARRAY DE STRING QUE ALMACENARÁ LOS VALORES CONCATENADOS
+    string string_concatenado[6];
+
+    // CONCATENA LOS STRINGS POR PARES
+    string_concatenado[0] = n1 + n2; //CONCATENA DOS STRINGS 
+    string_concatenado[1] = n3 + n4; //CONCATENA DOS STRINGS  
+    string_concatenado[2] = n5 + n6; //CONCATENA DOS STRINGS  
+    string_concatenado[3] = n7 + n8; //CONCATENA DOS STRINGS 
+    string_concatenado[4] = n9 + n10; //CONCATENA DOS STRINGS 
+    string_concatenado[5] = n11 + n12; //CONCATENA DOS STRINGS 
+
+    //CONVIERTE LOS STRINGS CONCATENADOS A ENTEROS LISTOS PARA SUMARSE
+    sumas[0] = stoi(string_concatenado[0]); //STRING TO INT PARA PODERLOS SUMAR
+    sumas[1] = stoi(string_concatenado[1]); //STRING TO INT PARA PODERLOS SUMAR 
+    sumas[2] = stoi(string_concatenado[2]); //STRING TO INT PARA PODERLOS SUMAR
+    sumas[3] = stoi(string_concatenado[3]); //STRING TO INT PARA PODERLOS SUMAR
+    sumas[4] = stoi(string_concatenado[4]); //STRING TO INT PARA PODERLOS SUMAR
+    sumas[5] = stoi(string_concatenado[5]); //STRING TO INT PARA PODERLOS SUMAR
+    
+
+
+    // ********MODIFICACION: SECCION ENTERA ELIMINADA POR SER FORMA INCORRECTA DE CONCATENAR
+    // ******* LA CORRECTA CONCATENACION SE HACE EN LINEAS SUPERIORES Y SE GUARDA EN EL ARRAY DE INT: "sumas[]"
     // CONCATENA LOS PARES DE ENTEROS PARA DESPUES SUMARLOS
-    for (size_t i = 0; i < 6; i++) {
-        if(placa_int[j+1] < 10) { // SI ES MENOR QUE 10, SE MULTIPLICA POR 10 PARA CONCATENAR EL NUMERO ANTERIOR
-            sumas[i] = (placa_int[j] * 10) + placa_int[j+1]; 
-        } else { //MULTIPLICA POR 100 Y CONCATENA
-            sumas[i] = (placa_int[j] * 100) + placa_int[j+1]; 
-        }
-        j = j +2; // CONTADOR J AUMENTA DE 2 EN 2 PORQUE SE TRABAJA CON PARES DE ENTEROS
-    }
+    // for (size_t i = 0; i < 6; i++) {
+    //     if(placa_int[j+1] < 10) { // SI ES MENOR QUE 10, SE MULTIPLICA POR 10 PARA CONCATENAR EL NUMERO ANTERIOR
+    //         sumas[i] = (placa_int[j] * 10) + placa_int[j+1]; 
+    //     } else { //MULTIPLICA POR 100 Y CONCATENA
+    //         sumas[i] = (placa_int[j] * 100) + placa_int[j+1]; 
+    //     }
+    //     j = j +2; // CONTADOR J AUMENTA DE 2 EN 2 PORQUE SE TRABAJA CON PARES DE ENTEROS
+    // }
 
     size_t suma_final = 0; //ES LA QUE TERMINARÁ SIENDO LA NUEVA DIRECCION BASE
     // cout << "Suma de los valores anteriores y ahora nueva direccion base: " << endl; //PRUEBA

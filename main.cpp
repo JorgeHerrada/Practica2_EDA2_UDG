@@ -30,14 +30,14 @@ int main()
     bool control_flag = false; 
 
     do {
-        system("cls");
+        system("cls");// LIMPIA PANTALLA
         // MENÚ
         cout<<"********************";
         cout<<"Base de datos del MINISTERIO DE FOMENTO DE ESPAÑA";
         cout<<"********************"<<endl<<endl<<endl;
-        cout<<"Bienvenido, por favor seleccione una opción: "<<endl<<endl;
-        cout<<"1.-Ejecutar la función de dispersión."<<endl;
-        cout<<"2.-Mostrar resultados de función."<<endl;
+        cout<<"Bienvenido, por favor seleccione una opcion: "<<endl<<endl;
+        cout<<"1.-Ejecutar la funcion de dispersion."<<endl;
+        cout<<"2.-Mostrar resultados de funcion."<<endl;
         cout<<"3.-Mostrar numero de frecuencias."<<endl;
         cout<<"4.-SALIR"<<endl;
 
@@ -51,7 +51,7 @@ int main()
             // LA FUNCION DE DISPERSION HA SIDO APLICADA Y SALE DEL SWITCH
             if (control_flag) 
             {
-                cout << "Ya se ha realizado la función de dispersión. Selecciona la opcion 2 o 3 para ver resultados." << endl;
+                cout << "Ya se ha realizado la funcion de dispersion. Selecciona la opcion 2 o 3 para ver resultados." << endl;
                 break;
             }
             else
@@ -62,8 +62,8 @@ int main()
                 // NUEVAS DIRECCIONES
                 propietario_n.inicializar_lista();
                 propietario_n.funcion_de_dispersion();
-                cout << "Se ha aplicado la función de dispersión con éxito.";
-                cout << "Ahora los registros están organizados en su nueva dirección." << endl;
+                cout << "Se ha aplicado la funcion de dispersion con exito. \n";
+                cout << "Ahora los registros estan organizados en su nueva direccion." << endl;
                 // BANDERA DE CONTROL ACTIVA, YA NO DEJARÁ QUE SE ENTRE A ESTA PARTE DEL CÓDIGO
                 control_flag = true; 
             }
@@ -82,7 +82,7 @@ int main()
             else
             {
                 // NO SE PUEDE DESPLEGAR RESULTADOS SIN HABER PASADO POR LA OPCION 1
-                cout << "No se ha aplicado la función de dispersión. Selecciona la opcion 1." << endl;
+                cout << "Aun no se ha aplicado la funcion de dispersion. Selecciona la opcion 1." << endl;
             }
         }
         break;
@@ -99,7 +99,7 @@ int main()
             else
             {
                 // NO SE PUEDE DESPLEGAR RESULTADOS SIN HABER PASADO POR LA OPCION 1
-                cout << "Aún no se ha aplicado la función de dispersión. Selecciona la opcion 1." << endl;
+                cout << "Aun no se ha aplicado la funcion de dispersion. Selecciona la opcion 1." << endl;
             }
         }
         break;

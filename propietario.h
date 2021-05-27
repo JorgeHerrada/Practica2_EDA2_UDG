@@ -1,3 +1,15 @@
+/*
+
+215465492 Saul Ezequiel García Ramos
+219293548 Abel Alejandro villa Gonzalez
+211721923 Jorge Luis Herrada Serrano 
+
+Materia: Estructura de datos 2
+Seccion: D12
+Profesor: Dra. Graciela Lara Lopez
+
+*/
+
 #ifndef PROPIETARIO_H
 #define PROPIETARIO_H
 
